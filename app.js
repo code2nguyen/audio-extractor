@@ -29,4 +29,4 @@ app.get('/extract', async (req, res) => {
     res.status(501).send('Not found videoUrl')
 })
 
-app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 8080, '0.0.0.0');
