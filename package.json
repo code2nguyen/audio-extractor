@@ -14,5 +14,8 @@
     "@ffmpeg/ffmpeg": "^0.10.1",
     "express": "^4.17.1",
     "uuid": "^8.3.2"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
