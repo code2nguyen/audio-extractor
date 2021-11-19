@@ -23,14 +23,18 @@ app.get('/extract', timeout('25s'), haltOnTimedout, async (req, res) => {
     await ffmpeg.FS('unlink', audioFileName);
     await fs.promises.writeFile(`${PUBLIC_FOLDER}/${audioFileName}`, output);
 
-    if (req.timedout) return
+    if (req.timedout) return;
     return res.status(200).send(audioFileName);
   }
 
   res.status(501).send('Not found videoUrl');
 });
 
-app.use(express.static(PUBLIC_FOLDER));
+app.use('/download', async (req, res) => {
+  const fileName = req.query.fileName;
+  const readStream = new fs.createReadStream(`${PUBLIC_FOLDER}/${fileName}`);
+  readStream.pipe(res);
+});
 
 app.listen(process.env.PORT || 8080, '0.0.0.0');
 
